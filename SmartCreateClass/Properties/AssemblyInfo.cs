@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Allows the quick creation of C++ classes")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Katz Studio")]
-[assembly: AssemblyProduct("VSIX_SmartCreateClass")]
+[assembly: AssemblyProduct("SmartCreateClass")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
