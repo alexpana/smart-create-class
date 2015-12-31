@@ -131,9 +131,9 @@
             this.label4.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.label4.Location = new System.Drawing.Point(13, 156);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(74, 13);
+            this.label4.Size = new System.Drawing.Size(71, 13);
             this.label4.TabIndex = 13;
-            this.label4.Text = "Output Folder:";
+            this.label4.Text = "Output Folder";
             // 
             // outputDirectoryLabel
             // 
