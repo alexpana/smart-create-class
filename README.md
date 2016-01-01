@@ -21,6 +21,6 @@ To change the way the output path is calculated, you can use the settings window
 
 The output path is calculated as follows:
 
-1. Use the skip filters count to trim the filter hierarchy. For example: using the hierarchy **Source Files\CPP\Entities\Obstacles** and a skip count of **2**, the result is **Entities\Obstacles**
+1. Use the skip filters count to trim the filter hierarchy. For example: using the hierarchy **SourceFiles\CPP\Entities\Obstacles** and a skip count of **2**, the result is **Entities\Obstacles**
 2. Use the prefix hierarchy path with the trimmed hierarchy. For example: using the trimmed hierarchy **Entities\Obstacles** and the prefix **Sources**, the result is **Sources\Entities\Obstacles**
 3. The **Solution Directory** is concatenated with the previous prefixed and trimmed hierarchy path to create the final path.
