@@ -18,7 +18,7 @@ namespace SmartCreateClass.Sources
 {
     internal class TemplateRenderer
     {
-        private static readonly string COCOS_2D_NODE_CPP = @"# include ""$HEADER_PATH$""
+        private static readonly string COCOS_2D_NODE_CPP = @"#include ""$HEADER_PATH$""
 
 USING_NS_CC;
 
