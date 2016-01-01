@@ -38,6 +38,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.outputDirectoryLabel = new System.Windows.Forms.Label();
+            this.SettingsLinkLabel = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // classNameTextBox
@@ -137,13 +138,26 @@
             // 
             // outputDirectoryLabel
             // 
-            this.outputDirectoryLabel.AutoSize = true;
+            this.outputDirectoryLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.outputDirectoryLabel.AutoEllipsis = true;
             this.outputDirectoryLabel.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.outputDirectoryLabel.Location = new System.Drawing.Point(13, 180);
             this.outputDirectoryLabel.Name = "outputDirectoryLabel";
-            this.outputDirectoryLabel.Size = new System.Drawing.Size(25, 13);
+            this.outputDirectoryLabel.Size = new System.Drawing.Size(363, 13);
             this.outputDirectoryLabel.TabIndex = 14;
             this.outputDirectoryLabel.Text = "???";
+            // 
+            // SettingsLinkLabel
+            // 
+            this.SettingsLinkLabel.AutoSize = true;
+            this.SettingsLinkLabel.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(255)))));
+            this.SettingsLinkLabel.Location = new System.Drawing.Point(13, 209);
+            this.SettingsLinkLabel.Name = "SettingsLinkLabel";
+            this.SettingsLinkLabel.Size = new System.Drawing.Size(45, 13);
+            this.SettingsLinkLabel.TabIndex = 15;
+            this.SettingsLinkLabel.TabStop = true;
+            this.SettingsLinkLabel.Text = "Settings";
+            this.SettingsLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.SettingsLinkLabel_LinkClicked);
             // 
             // ClassSelectionForm
             // 
@@ -152,6 +166,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.ClientSize = new System.Drawing.Size(384, 241);
             this.ControlBox = false;
+            this.Controls.Add(this.SettingsLinkLabel);
             this.Controls.Add(this.outputDirectoryLabel);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
@@ -183,5 +198,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label outputDirectoryLabel;
+        private System.Windows.Forms.LinkLabel SettingsLinkLabel;
     }
 }

@@ -62,6 +62,7 @@ namespace SmartCreateClass.Sources
         protected override void Initialize()
         {
             SmartCreateClassCommand.Initialize(this);
+            SettingsCommand.Initialize(this);
             base.Initialize();
         }
 

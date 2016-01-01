@@ -14,26 +14,44 @@
 //
 //  0. You just DO WHAT THE FUCK YOU WANT TO.
 
+using SmartCreateClass.Properties;
 using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace SmartCreateClass.Sources
 {
     public partial class ClassSelectionForm : Form
     {
-        private readonly Action<string, string, ClassType> callbackAction;
-        private readonly string outputDirectory;
+        private readonly Action<string, string, ClassType> Callback;
+        private readonly string HierarchyPath;
+        private readonly string SolutionDirectory;
+        private ToolTip OutputDirectoryLabelTooltip;
 
-        public ClassSelectionForm(string outputDirectory, Action<string, string, ClassType> callback)
+        public ClassSelectionForm(string SolutionDirectory, string HierarchyPath, Action<string, string, ClassType> Callback)
         {
             InitializeComponent();
 
-            callbackAction = callback;
-            this.outputDirectory = outputDirectory;
+            this.SolutionDirectory = SolutionDirectory;
+            this.HierarchyPath = HierarchyPath;
+            this.Callback = Callback;
 
             classTypeComboBox.SelectedIndex = 0;
             classNameTextBox.Focus();
-            outputDirectoryLabel.Text = outputDirectory;
+
+            OutputDirectoryLabelTooltip = new ToolTip();
+            OutputDirectoryLabelTooltip.ToolTipIcon = ToolTipIcon.None;
+            OutputDirectoryLabelTooltip.IsBalloon = true;
+            OutputDirectoryLabelTooltip.AutoPopDelay = 32000;
+
+            UpdateOutputDirectory();
+        }
+
+        private void UpdateOutputDirectory()
+        {
+            var outputDir = GetOutputDir();
+            outputDirectoryLabel.Text = outputDir;
+            OutputDirectoryLabelTooltip.SetToolTip(outputDirectoryLabel, outputDir);
         }
 
         private void classNameTextBox_KeyDown(object sender, KeyEventArgs e)
@@ -46,13 +64,13 @@ namespace SmartCreateClass.Sources
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            Dispose(true);
+            Close();
         }
 
         private void createButton_Click(object sender, EventArgs e)
         {
-            callbackAction(classNameTextBox.Text, outputDirectory, getSelectedClassType());
-            Dispose(true);
+            Callback(classNameTextBox.Text, GetOutputDir(), getSelectedClassType());
+            Close();
         }
 
         private ClassType getSelectedClassType()
@@ -73,6 +91,45 @@ namespace SmartCreateClass.Sources
         private void classNameTextBox_TextChanged(object sender, EventArgs e)
         {
             createButton.Enabled = classNameTextBox.Text.Length > 0;
+        }
+
+        private void SettingsLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var settingsForm = new SettingsForm();
+            settingsForm.FormClosing += OnSettingsFormClosing;
+            settingsForm.ShowDialog();
+        }
+
+        private void OnSettingsFormClosing(object sender, FormClosingEventArgs e)
+        {
+            UpdateOutputDirectory();
+        }
+
+        private string GetOutputDir()
+        {
+            return GetOutputDir(SolutionDirectory, HierarchyPath);
+        }
+
+        private string GetOutputDir(string SolutionDirectory, string HierarchyPath)
+        {
+            var FinalHierarchyPath = SkipLeadingFolders(HierarchyPath, (int)Settings.Default.skip_filters_count);
+            var OutputDir = Path.Combine(SolutionDirectory, Settings.Default.prefix_path, FinalHierarchyPath);
+            return Path.GetFullPath(OutputDir);
+        }
+
+        private string SkipLeadingFolders(string Directory, int FolderCount)
+        {
+            if (FolderCount == 0)
+            {
+                return Directory;
+            }
+
+            var Paths = Directory.Split("\\".ToCharArray(), FolderCount + 1);
+            if (Paths.Length > FolderCount)
+            {
+                return Paths[FolderCount];
+            }
+            return "";
         }
     }
 }

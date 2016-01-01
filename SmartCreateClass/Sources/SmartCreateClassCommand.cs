@@ -22,6 +22,7 @@ using EnvDTE80;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using SmartCreateClass.Properties;
 
 namespace SmartCreateClass.Sources
 {
@@ -108,11 +109,8 @@ namespace SmartCreateClass.Sources
 
             var solutionDirectory = GetSolutionDir();
 
-            var outputDirectory = GetOutputDir(solutionDirectory, selectedFilterPath);
-
-            var transformFileInfo = new FileInfo(selectedFilterPath);
-            var form = new ClassSelectionForm(outputDirectory, onCreate);
-            form.Show();
+            var CreateClassForm = new ClassSelectionForm(solutionDirectory, selectedFilterPath, onCreate);
+            CreateClassForm.ShowDialog();
         }
 
         private void onCreate(string className, string path, ClassType classType)
@@ -151,15 +149,6 @@ namespace SmartCreateClass.Sources
             {
                 ShowMessage(e.Message, "Exception");
             }
-        }
-
-        private string GetOutputDir(string solutionDirectory, string filterPath)
-        {
-            // we change the root folder of the filter to 'Classes' since that's what cocos2d uses
-            var filterPathSplit = filterPath.Split("\\".ToCharArray(), 2);
-            var filterPathTail = filterPathSplit.Length > 1 ? filterPathSplit[1] : "";
-            var outputPath = Path.GetFullPath(Path.Combine(solutionDirectory, "..", "Sources", filterPathTail));
-            return outputPath;
         }
 
         private static string GetSolutionDir()
