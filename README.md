@@ -15,7 +15,11 @@ Usage
 
 Settings
 ========
-To change the way the output path is calculated, you can use the settings window. It can be accessed via **Tools > Smart Create Class Settings** or via the **Settings** link in the Create Class window. The output path is calculated as follows:
+To change the way the output path is calculated, you can use the settings window. It can be accessed via **Tools > Smart Create Class Settings** or via the **Settings** link in the Create Class window.
+
+![The settings window](https://raw.githubusercontent.com/alexpana/smart-create-class/master/images/settings.png)
+
+The output path is calculated as follows:
 
 1. Use the skip filters count to trim the filter hierarchy. For example: using the hierarchy **Source Files\CPP\Entities\Obstacles** and a skip count of **2**, the result is **Entities\Obstacles**
 2. Use the prefix hierarchy path with the trimmed hierarchy. For example: using the trimmed hierarchy **Entities\Obstacles** and the prefix **Sources**, the result is **Sources\Entities\Obstacles**
