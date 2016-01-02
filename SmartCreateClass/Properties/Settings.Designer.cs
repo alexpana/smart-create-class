@@ -46,5 +46,17 @@ namespace SmartCreateClass.Properties {
                 this["skip_filters_count"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int default_template_type {
+            get {
+                return ((int)(this["default_template_type"]));
+            }
+            set {
+                this["default_template_type"] = value;
+            }
+        }
     }
 }

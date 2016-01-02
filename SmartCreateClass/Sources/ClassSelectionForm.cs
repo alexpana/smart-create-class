@@ -14,10 +14,10 @@
 //
 //  0. You just DO WHAT THE FUCK YOU WANT TO.
 
-using SmartCreateClass.Properties;
 using System;
 using System.IO;
 using System.Windows.Forms;
+using SmartCreateClass.Properties;
 
 namespace SmartCreateClass.Sources
 {
@@ -26,9 +26,10 @@ namespace SmartCreateClass.Sources
         private readonly Action<string, string, TemplateType> Callback;
         private readonly string HierarchyPath;
         private readonly string SolutionDirectory;
-        private ToolTip OutputDirectoryLabelTooltip;
+        private readonly ToolTip OutputDirectoryLabelTooltip;
 
-        public ClassSelectionForm(string SolutionDirectory, string HierarchyPath, Action<string, string, TemplateType> Callback)
+        public ClassSelectionForm(string SolutionDirectory, string HierarchyPath,
+            Action<string, string, TemplateType> Callback)
         {
             InitializeComponent();
 
@@ -36,7 +37,7 @@ namespace SmartCreateClass.Sources
             this.HierarchyPath = HierarchyPath;
             this.Callback = Callback;
 
-            classTypeComboBox.SelectedIndex = 0;
+            classTypeComboBox.SelectedIndex = Settings.Default.default_template_type;
             classNameTextBox.Focus();
 
             OutputDirectoryLabelTooltip = new ToolTip();
@@ -114,7 +115,7 @@ namespace SmartCreateClass.Sources
 
         private string GetOutputDir(string SolutionDirectory, string HierarchyPath)
         {
-            var FinalHierarchyPath = SkipLeadingFolders(HierarchyPath, (int)Settings.Default.skip_filters_count);
+            var FinalHierarchyPath = SkipLeadingFolders(HierarchyPath, (int) Settings.Default.skip_filters_count);
             var OutputDir = Path.Combine(SolutionDirectory, Settings.Default.prefix_path, FinalHierarchyPath);
             return Path.GetFullPath(OutputDir);
         }
@@ -132,6 +133,12 @@ namespace SmartCreateClass.Sources
                 return Paths[FolderCount];
             }
             return "";
+        }
+
+        private void classTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Settings.Default.default_template_type = classTypeComboBox.SelectedIndex;
+            Settings.Default.Save();
         }
     }
 }
