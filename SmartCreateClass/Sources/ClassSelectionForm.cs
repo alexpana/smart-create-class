@@ -23,12 +23,12 @@ namespace SmartCreateClass.Sources
 {
     public partial class ClassSelectionForm : Form
     {
-        private readonly Action<string, string, ClassType> Callback;
+        private readonly Action<string, string, TemplateType> Callback;
         private readonly string HierarchyPath;
         private readonly string SolutionDirectory;
         private ToolTip OutputDirectoryLabelTooltip;
 
-        public ClassSelectionForm(string SolutionDirectory, string HierarchyPath, Action<string, string, ClassType> Callback)
+        public ClassSelectionForm(string SolutionDirectory, string HierarchyPath, Action<string, string, TemplateType> Callback)
         {
             InitializeComponent();
 
@@ -73,19 +73,21 @@ namespace SmartCreateClass.Sources
             Close();
         }
 
-        private ClassType getSelectedClassType()
+        private TemplateType getSelectedClassType()
         {
             switch (classTypeComboBox.SelectedIndex)
             {
                 case 0:
-                    return ClassType.COCOS_2D_NODE;
+                    return TemplateType.EmptyClass;
                 case 1:
-                    return ClassType.EMPTY_CLASS;
+                    return TemplateType.EmptyHeaderSourcePair;
                 case 2:
-                    return ClassType.EMPTY_FILES;
+                    return TemplateType.EmptyHeader;
+                case 3:
+                    return TemplateType.Cocos2DNode;
             }
 
-            return ClassType.EMPTY_FILES;
+            return TemplateType.EmptyHeaderSourcePair;
         }
 
         private void classNameTextBox_TextChanged(object sender, EventArgs e)

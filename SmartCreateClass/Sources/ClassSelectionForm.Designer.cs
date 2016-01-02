@@ -56,9 +56,9 @@
             this.label1.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.label1.Location = new System.Drawing.Point(13, 106);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 13);
+            this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 8;
-            this.label1.Text = "Class Name";
+            this.label1.Text = "Name";
             // 
             // createButton
             // 
@@ -86,9 +86,10 @@
             this.classTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.classTypeComboBox.FormattingEnabled = true;
             this.classTypeComboBox.Items.AddRange(new object[] {
-            "Cocos2D Node",
             "Empty Class",
-            "Empty Header/Source pair"});
+            "Empty Header/Source pair",
+            "Empty Header",
+            "Cocos2D Node"});
             this.classTypeComboBox.Location = new System.Drawing.Point(15, 75);
             this.classTypeComboBox.Name = "classTypeComboBox";
             this.classTypeComboBox.Size = new System.Drawing.Size(361, 21);

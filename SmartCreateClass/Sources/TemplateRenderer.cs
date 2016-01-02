@@ -64,16 +64,21 @@ public:
 
 ";
 
-        public RenderResult RenderTemplate(ClassType classType, TemplateContext context)
+        private static readonly string EMPTY_HEADER = @"#pragma once
+";
+
+        public RenderResult RenderTemplate(TemplateType templateType, TemplateContext context)
         {
-            switch (classType)
+            switch (templateType)
             {
-                case ClassType.COCOS_2D_NODE:
+                case TemplateType.Cocos2DNode:
                     return RenderTemplate(COCOS_2D_NODE_HPP, COCOS_2D_NODE_CPP, context);
-                case ClassType.EMPTY_CLASS:
+                case TemplateType.EmptyClass:
                     return RenderTemplate(EMPTY_CLASS_HPP, EMPTY_CLASS_CPP, context);
-                case ClassType.EMPTY_FILES:
+                case TemplateType.EmptyHeaderSourcePair:
                     return RenderTemplate(EMPTY_FILE_HPP, EMPTY_FILE_CPP, context);
+                case TemplateType.EmptyHeader:
+                    return RenderTemplate(EMPTY_HEADER, "", context);
             }
 
             return null;

@@ -22,7 +22,6 @@ using EnvDTE80;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using SmartCreateClass.Properties;
 
 namespace SmartCreateClass.Sources
 {
@@ -113,36 +112,32 @@ namespace SmartCreateClass.Sources
             CreateClassForm.ShowDialog();
         }
 
-        private void onCreate(string className, string path, ClassType classType)
+        private void onCreate(string className, string path, TemplateType templateType)
         {
             try
             {
                 // create directory if doesn't exist
                 Directory.CreateDirectory(path);
 
-                // write file contents
-                var templateRender = templateRenderer.RenderTemplate(classType,
+                var templateRender = templateRenderer.RenderTemplate(templateType,
                     new TemplateContext(className + ".h", className));
+
+                var selectedProjectItems = dte.SelectedItems.Item(1).ProjectItem.ProjectItems;
 
                 var headerPath = Path.Combine(path, className + ".h");
                 File.Create(headerPath).Close();
                 File.WriteAllText(headerPath, templateRender.Header);
+                selectedProjectItems.AddFromFile(headerPath);
 
-                var sourcePath = Path.Combine(path, className + ".cpp");
-                File.Create(sourcePath).Close();
-                File.WriteAllText(sourcePath, templateRender.Source);
-
-                // Add files to solution
-                var solutionService = Package.GetGlobalService(typeof (SVsSolution)) as IVsSolution;
-                var guidProjectID = Guid.Empty;
+                if (TemplateTraits.ForType(templateType).HasSourceFile)
+                {
+                    var sourcePath = Path.Combine(path, className + ".cpp");
+                    File.Create(sourcePath).Close();
+                    File.WriteAllText(sourcePath, templateRender.Source);
+                    selectedProjectItems.AddFromFile(sourcePath);
+                }
 
                 var project = dte.SelectedItems.Item(1).ProjectItem.ContainingProject;
-
-                var headerItem = dte.SelectedItems.Item(1).ProjectItem.ProjectItems.AddFromFile(headerPath);
-                var sourceItem = dte.SelectedItems.Item(1).ProjectItem.ProjectItems.AddFromFile(sourcePath);
-
-                var firstItem = dte.SelectedItems.Item(1).ProjectItem.ProjectItems.Item(1);
-
                 project.Save();
             }
             catch (Exception e)

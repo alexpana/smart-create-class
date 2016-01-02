@@ -73,7 +73,7 @@
     </Compile>
     <Compile Include="Sources\TemplateContext.cs" />
     <Compile Include="Sources\TemplateRenderer.cs" />
-    <Compile Include="Sources\ClassType.cs" />
+    <Compile Include="Sources\TemplateType.cs" />
     <Compile Include="Sources\SmartCreateClassCommand.cs" />
     <Compile Include="Sources\SmartCreateClassCommandPackage.cs" />
   </ItemGroup>
